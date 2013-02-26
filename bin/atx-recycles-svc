@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+BASEDIR = File.dirname(__FILE__) + '/..'
+$:.insert(0, BASEDIR + '/lib')
+require 'sinatra'
+require 'uri'
+require 'json'
+#noinspection RubyResolve
+require 'atx-recycles-svc'
+
+helpers do
+  def send_entity(entity)
+    content_type :json
+    entity.to_json
+  end
+end
+
+@@app = ATXRecyclesSvc::App.new(:libspatialite => ENV['LIBSPATIALITE'])
+
+get '/svc' do
+  params = request.env['rack.request.query_hash']
+  lat = params['latitude']
+  lng = params['longitude']
+  send_entity @@app.search(lat.to_f, lng.to_f)
+end
+
+post '/svc' do
+  a = URI.decode_www_form(request.body.read)
+  lat = (a.assoc('latitude') || []).last
+  lng = (a.assoc('longitude') || []).last
+  send_entity @@app.search(lat.to_f, lng.to_f)
+end
