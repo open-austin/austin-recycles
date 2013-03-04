@@ -9,24 +9,30 @@ require 'json'
 require 'atx-recycles-svc'
 
 helpers do
-  def send_entity(entity)
+  def send_entity(entity, callback = nil)
     content_type :json
-    entity.to_json
+    if callback
+      response = "#{callback}(#{entity.to_json})"
+    else
+      response = entity.to_json
+    end
   end
 end
 
 @@app = ATXRecyclesSvc::App.new(:libspatialite => ENV['LIBSPATIALITE'])
 
 get '/svc' do
+  callback = params.delete('callback') # jsonp
   params = request.env['rack.request.query_hash']
   lat = params['latitude']
   lng = params['longitude']
-  send_entity @@app.search(lat.to_f, lng.to_f)
+  send_entity(@@app.search(lat.to_f, lng.to_f), callback)
 end
 
 post '/svc' do
+  callback = params.delete('callback') # jsonp
   a = URI.decode_www_form(request.body.read)
   lat = (a.assoc('latitude') || []).last
   lng = (a.assoc('longitude') || []).last
-  send_entity @@app.search(lat.to_f, lng.to_f)
+  send_entity(@@app.search(lat.to_f, lng.to_f), callback)
 end
