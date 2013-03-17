@@ -1,8 +1,7 @@
-# A sample Gemfile
 source 'https://rubygems.org'
-
-# gem "rails"
-gemspec
-
 gem 'sinatra'
-gem 'sequel'
+gem 'sinatra-jsonp'
+gem 'ice_cube'
+
+gem "findit-support", :git => "git://github.com/chip-rosenthal/findit-support.git"
+

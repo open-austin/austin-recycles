@@ -1,26 +1,17 @@
-require 'logger'
-require 'ice_cube'
-#require 'atx-recycles-svc'
-#require 'atx-recycles-svc/collection-route'
-
+require 'atx-recycles-svc/collection-route'
+require 'findit-support'
 
 module ATXRecyclesSvc
   
-
   class App
-    
+
     DATABASE = File.dirname(__FILE__) + '/data/collection_routes.db'
-    LIBSPATIALITE = '/usr/lib/libspatialite.so.3'
 
     def initialize(options = {})
   
-      @log = Logger.new($stderr)
-      @log.level = Logger::DEBUG    
-
-      @database = options[:database] || DATABASE
-      @libspatialite = options[:libspatialite]  || LIBSPATIALITE
+      @database = ENV["ATX_RECYCLES_DATABASE"] || DATABASE
       
-      @db = ATXRecyclesSvc::Database.connect(@database, :spatialite => @libspatialite, :log => @log)
+      @db = Sequel.spatialite(@database, :spatialite => ENV["SPATIALITE"])
       
       # List of classes that implement features (derived from ATXRecyclesSvc::BaseFeature).
       @find_classes = [
@@ -35,13 +26,13 @@ module ATXRecyclesSvc
     
     
     def search(lat, lng)
-      origin = ATXRecyclesSvc::Location.new(lat, lng, :DEG)  
-      
+      origin = FindIt::Location.new(lat, lng, :DEG)      
       {
         :origin => origin.to_h,
         :routes => @find_classes.map {|klass| klass.send(:search, origin)}.reject {|a| a.nil?}
       }
     end
  
-  end # module App
-end # module ATXRecyclesSvc
+  end
+
+end
