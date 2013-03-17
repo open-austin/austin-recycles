@@ -1,39 +1,7 @@
-#require 'atx-recycles-svc/app'
-#require 'atx-recycles-svc/database'
-#require 'atx-recycles-svc/location'
-#require 'atx-recycles-svc/collection-route'
-#
-#class String
-#  
-#  def capitalize_words
-#    self.split.map{|w| w.capitalize}.join(' ')
-#  end
-#    
-#  require 'cgi'
-#  def html_safe
-#    CGI::escape_html(self)
-#  end
-#  
-#end
-#
-#
-#class NilClass
-#  
-#  # So I can use foo.empty? safely on things expected to hold a String.  
-#  def empty?
-#    true
-#  end
-#  
-#end
-
-
-BASEDIR = File.dirname(__FILE__)
-$:.insert(0, BASEDIR + '/../vendor/findit-support/lib')
-$:.insert(0, BASEDIR )
-
 require 'sinatra/base'
 require 'sinatra/jsonp'
-require 'atx-recycles-svc/app'
+require_relative './atx-recycles-svc/app'
+require_relative '../vendor/findit-support/lib/findit-support.rb'
 
 module ATXRecyclesSvc
   class Service < Sinatra::Base   

@@ -2,38 +2,24 @@ require "ice_cube"
 
 module ATXRecyclesSvc
 
-  class CollectionRouteFactory
+  class CollectionRoute
     
-    VALID_TYPES = [:RECYCLE, :BRUSH, :BULKY, :GARBAGE, :YARD_TRIMMING]          
-      
-    def self.create(db, type)
-      
-      unless VALID_TYPES.include?(type)
+    include IceCube 
+       
+    TYPES = [:RECYCLE, :BRUSH, :BULKY, :GARBAGE, :YARD_TRIMMING]          
+    
+    def initialize(db, type, table = nil)
+      unless TYPES.include?(type)
         raise "unknown facility type \"#{type}\""            
       end
       
-      klass = Class.new(AbstractCollectionRoute)
-      klass.instance_variable_set(:@db, db)
-      klass.instance_variable_set(:@type, type)
-      klass.instance_variable_set(:@table, "#{type.downcase}_collection_routes".to_sym)          
-      klass      
-    end # initialize
+      @db = db
+      @type = type
+      @table = table || "#{type.downcase}_collection_routes".to_sym
+    end
     
-  end # class CollectionRouteFactory
-  
-  #
-  # Abstract class derived from ATXRecyclesSvc::BaseFeature to represent a variety
-  # of features found in the City of Austin "facilities" GIS dataset.
-  #
-  class AbstractCollectionRoute
     
-    include IceCube
-
-    @db = nil      
-    @type = nil  
-    @table = nil   
-    
-    def self.search(origin)  
+    def search(origin)  
         
       route = @db[@table] \
         .filter{ST_Contains(:Geometry, ST_Transform(MakePoint(origin.lng, origin.lat, 4326), 2277))} \
