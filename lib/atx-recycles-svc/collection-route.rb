@@ -54,7 +54,6 @@ module ATXRecyclesSvc
         schedule = Schedule.new(start_date)
         schedule.add_recurrence_rule Rule.weekly(2).day(day_num)
         recycle_date = schedule.next_occurrence
-        puts "NEXT OCCURRENCE: #{recycle_date}"
       end
       
       service = {}            
