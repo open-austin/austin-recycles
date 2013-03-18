@@ -1,7 +1,9 @@
+dir = File.dirname(__FILE__)
+$LOAD_PATH.unshift(dir, "#{dir}/../vendor/findit-support/lib")
+
 require 'sinatra/base'
 require 'sinatra/jsonp'
-require_relative './atx-recycles-svc/app'
-require_relative '../vendor/findit-support/lib/findit-support.rb'
+require 'atx-recycles-svc/app'
 
 module ATXRecyclesSvc
   class Service < Sinatra::Base   
@@ -37,4 +39,3 @@ module ATXRecyclesSvc
   end
   
 end
-

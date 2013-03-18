@@ -1,4 +1,5 @@
-require_relative './collection-route.rb'
+require 'findit-support'
+require 'atx-recycles-svc/collection-route'
 
 module ATXRecyclesSvc
   

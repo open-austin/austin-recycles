@@ -66,8 +66,7 @@ module ATXRecyclesSvc
       
       ret
       
-    end # self.find
+    end # search
     
-  end # class AbstractCollectionRoute
-
+  end # class CollectionRoute
 end # module ATXRecyclesSvc
