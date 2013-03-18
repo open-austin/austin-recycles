@@ -1,5 +1,2 @@
-require 'rubygems'
-require 'sinatra'
-
-load './bin/atx-recycles-svc'
-run Sinatra::Application
+load './lib/atx-recycles-svc.rb'
+run ATXRecyclesSvc::Service.new
