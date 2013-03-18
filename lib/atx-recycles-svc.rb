@@ -24,6 +24,7 @@ module ATXRecyclesSvc
      params = request.env['rack.request.query_hash']
      lat = params['latitude'].to_f
      lng = params['longitude'].to_f
+     content_type :json
      jsonp @@app.search(lat, lng)
    end
    
@@ -31,6 +32,7 @@ module ATXRecyclesSvc
      a = URI.decode_www_form(request.body.read)
      lat = (a.assoc('latitude') || []).last.to_f
      lng = (a.assoc('longitude') || []).last.to_f
+     content_type :json
      jsonp @@app.search(lat, lng)
    end
   
