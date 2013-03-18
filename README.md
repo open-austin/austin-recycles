@@ -60,7 +60,9 @@ RESPONSE:
 	}
 
 ## Helpful notes
-* The atx-recycling.html file may be used to test the service response.
-* It may be helpful to use the spatialite gui db browser app to browse the raw database tables;
+* The atx-recycling.html file may be used to test the service response directly from the open-austin.org server.
+* The atx-recycling-dev.html file is the same as atx-recycling.html, but points to localhost for testing the service in local development.
+* It may be helpful to use the spatialite gui db browser app to browse the raw database tables.
+* Check the vendor/README file for instructions for installing the findit-support package.
 
 ## To-do
