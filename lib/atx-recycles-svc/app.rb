@@ -7,16 +7,11 @@ module ATXRecyclesSvc
     DATABASE = File.dirname(__FILE__) + '/data/collection_routes.db'
 
     def initialize(options = {})
-  
-      @database = ENV["ATX_RECYCLES_DATABASE"] || DATABASE
-      
-      @db = Sequel.spatialite(@database, :spatialite => ENV["SPATIALITE"])
-      
+      @db = Sequel.spatialite(DATABASE)
       @finders = []
       ATXRecyclesSvc::CollectionRoute::TYPES.each do |type|
         @finders << ATXRecyclesSvc::CollectionRoute.new(@db, type)
       end
-      
     end
     
     
