@@ -1,13 +1,15 @@
 # About
 Provides a web service that provides trash and recycling pickup information for the City of Austin.
 
+More info here: http://atxcivichack3.wikispaces.com/Recycling+Pickup+App
+
 ## Requirements
 Run bin/atx-recycles-svc either from a command line for development, or
 via Phusion Passenger for production.
 
 The LIBSPATIALITE path may need to be specifically set when running the service:
 
-	LIBSPATIALITE=/usr/local/opt/libspatialite/lib/libspatialite.dylib bin/atx-recycles-svc
+	SPATIALITE=/usr/local/opt/libspatialite/lib/libspatialite.dylib bin/atx-recycles-svc
 
 ## Example:
 REQUEST:
