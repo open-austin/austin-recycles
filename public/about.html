@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>ATX Recycles - Austin Recycling and Collection</title>
+  <title>About ATX Recycles</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Austin, Texas, trash and recycling schedule information.">
+  <meta name="description" content="About the Austin, Texas, trash and recycling schedule information service.">
   <meta name="author" content="Open Austin">
 
   <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -16,8 +16,15 @@
     .logo {
       margin-top: 60px;
       margin-bottom: 20px;
-      margin-right: 20px;
-      margin-left: 20px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .heading_image {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
     }
   </style>
   <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
@@ -28,11 +35,9 @@
   <![endif]-->
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-  <script type="text/javascript" src="assets/js/atx-recycling.js"></script>
 </head>
 
-<body onload="initialize()">
+<body>
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
@@ -46,10 +51,6 @@
           <ul class="nav">
             <li><a href="about.html">About</a></li>
           </ul>
-          <form class="navbar-form pull-right">
-            <input class="span4" type="text" id="address" placeholder="Enter address" />
-            <input type="button" value="Go" class="btn" onclick="geocode()">
-          </form>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -57,32 +58,41 @@
 
   <div class="container">
 
-    <div class="row">
-
-      <div class="span9">
-        <h1>When do we put our bins out?</h1>
-
-        <div id="map">
-          <div id="map_canvas" style="width:100%; height:400px"></div>
-          <div id="crosshair"></div>
-        </div>
+    <div class="hero-unit">
+      <h1>Austin Recycles!</h1>
+      <div class="heading_image">
+       <img alt="Recycle Austin" height="171" src="assets/img/atx-recycle.png" title="Recycle Austin" width="600" />
       </div>
 
-      <div class="span3">
-          <div class="logo">
-            <a href="http://www.open-austin.org/">
-            <img alt="Open Austin" height="46" src="assets/img/logo-openaustin-230x46.png" title="Open Austin" width="230" /></a>
-          </div>
+      <p>
+        "When do we put our bins out?" is one of the most common questions received by Austin Resource Recovery (ARR). 
+        Using device location or dropping a pin on the map, this app answers the question. Provided by Open Austin. 
+        Powered by open data from ARR.
+      </p>
+    </div>
 
-          <div class="logo">
-            <a href="http://austintexas.gov/department/austin-resource-recovery">
-            <img alt="Austin Resource Recovery" height="95" src="assets/img/ARRlogo_coa_230.png" title="Austin Resource Recovery" width="230" /></a>
-          </div>
+    <div class="row">
 
-          <div class="logo">
-            <a href="http://austintexas.gov/">
-            <img alt="City of Austin" height="150" src="assets/img/COA_Seal_150.png" title="City of Austin" width="150" /></a>
-          </div>
+      <div class="span12">
+        <h3>Resources</h3>
+        <p>
+          Visit <a href="http://austintexas.gov/department/austin-resource-recovery">
+          Austin Resource Recovery</a> for more information about residential curbside collection of trash, 
+          recycling and yard trimmings. Additional services include sweeping streets, collecting dead animals, 
+          operating a drop-off center for household hazardous waste and collecting bulk items and large brush.
+        </p> 
+
+        <h3>About Open Austin</h3>
+        <p><a href="http://www.open-austin.org/">Open Austin</a> is a local,
+        volunteer advocacy group. We advocate for open government, open data,
+        and civic technology. This service was created by our volunteer
+        hackers, and presented as a public service.</p>
+
+        <p>This project is <i>open source</i>, and you can participate by downloading at:
+        <a href="https://github.com/chip-rosenthal/atx-recycles-svc.git">https://github.com/chip-rosenthal/atx-recycles-svc.git</a>.</p>
+
+        <p>More information about the app development can be found here: <a href="http://atxhack.wikispaces.com/Austin+Recycles">
+          http://atxhack.wikispaces.com/Austin+Recycles</a></p>
 
       </div>
 
@@ -90,17 +100,28 @@
 
     <div class="row">
 
-      <div class="span6">
-        <h2>Address</h2>
-        <div id="formattedAddress"></div>
+      <div class="span4">
+          <div class="logo"><br /><br />
+            <a href="http://www.open-austin.org/">
+            <img alt="Open Austin" height="46" src="assets/img/logo-openaustin-230x46.png" title="Open Austin" width="230" /></a>
+          </div>
       </div>
 
-      <div class="span6">
-        <h2>Service</h2>
-        <div id="recycling"></div>
+      <div class="span4">
+          <div class="logo"><br />
+            <a href="http://austintexas.gov/department/austin-resource-recovery">
+            <img alt="Austin Resource Recovery" height="95" src="assets/img/ARRlogo_coa_230.png" title="Austin Resource Recovery" width="230" /></a>
+          </div>
       </div>
 
-    </div> <!-- /row -->
+      <div class="span4">
+          <div class="logo">
+            <a href="http://austintexas.gov/">
+            <img alt="City of Austin" height="150" src="assets/img/COA_Seal_150.png" title="City of Austin" width="150" /></a>
+          </div>
+      </div>
+
+    </div>
 
     <hr>
 
