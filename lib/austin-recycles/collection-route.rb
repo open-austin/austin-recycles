@@ -1,6 +1,6 @@
 require "ice_cube"
 
-module ATXRecyclesSvc
+module AustinRecycles
 
   # Implements a search for a collection rotue and next delivery date
   # for a specified service.
@@ -200,4 +200,4 @@ module ATXRecyclesSvc
     end # search
     
   end # class CollectionRoute
-end # module ATXRecyclesSvc
+end # module AustinRecycles

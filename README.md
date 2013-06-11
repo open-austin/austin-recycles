@@ -4,7 +4,7 @@ Provides a web service that provides trash and recycling pickup information for 
 More info here: http://atxcivichack3.wikispaces.com/Recycling+Pickup+App
 
 ## Usage
-Run bin/atx-recycles-svc either from a command line for development, or
+Run bin/austin-recycles either from a command line for development, or
 via Phusion Passenger for production.
 
 ## Requirements
@@ -14,7 +14,7 @@ into the vendor directory. See: vendor/README
 
 The SPATIALITE path may need to be specifically set when running the service:
 
-        SPATIALITE=/usr/local/opt/libspatialite/lib/libspatialite.dylib bin/atx-recycles-svc
+        SPATIALITE=/usr/local/opt/libspatialite/lib/libspatialite.dylib bin/austin-recycles
 
 For more information, see: vendor/findit-support/README.rdoc
 

@@ -3,12 +3,12 @@ $LOAD_PATH.unshift(dir, "#{dir}/../vendor/findit-support/lib")
 
 require 'sinatra/base'
 require 'sinatra/jsonp'
-require 'atx-recycles-svc/app'
+require 'austin-recycles/app'
 
-module ATXRecyclesSvc
+module AustinRecycles
   class Service < Sinatra::Base   
    
-   @@app = ATXRecyclesSvc::App.new
+   @@app = AustinRecycles::App.new
    
    set :public_folder, 'public'
     

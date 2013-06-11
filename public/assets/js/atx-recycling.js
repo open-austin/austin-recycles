@@ -157,7 +157,7 @@ function getRecycling(lat, lng) {
     $.ajax({
       type: "GET",
       url: "http://localhost:4567/svc?latitude=" + lat + "&longitude=" + lng,
-      //url: "http://atx-recycles-svc.open-austin.org/svc?latitude=" + lat + "&longitude=" + lng,
+      //url: "http://austin-recycles.open-austin.org/svc?latitude=" + lat + "&longitude=" + lng,
       contentType: "application/json; charset=utf-8",
       dataType: "jsonp",
       success: function (data) {

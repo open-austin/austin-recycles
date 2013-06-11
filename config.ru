@@ -1,2 +1,2 @@
-load './lib/atx-recycles-svc.rb'
-run ATXRecyclesSvc::Service.new
+load './lib/austin-recycles.rb'
+run AustinRecycles::Service.new

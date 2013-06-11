@@ -1,7 +1,7 @@
 require 'findit-support'
-require 'atx-recycles-svc/collection-route'
+require 'austin-recycles/collection-route'
 
-module ATXRecyclesSvc
+module AustinRecycles
   
   class App
 
@@ -10,8 +10,8 @@ module ATXRecyclesSvc
     def initialize(options = {})
       @db = Sequel.spatialite(DATABASE)
       @finders = {}
-      ATXRecyclesSvc::CollectionRoute::TYPES.each do |type|
-        @finders[type] = ATXRecyclesSvc::CollectionRoute.new(@db, type)
+      AustinRecycles::CollectionRoute::TYPES.each do |type|
+        @finders[type] = AustinRecycles::CollectionRoute.new(@db, type)
       end
     end
     
