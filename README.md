@@ -14,7 +14,7 @@ into the vendor directory. See: vendor/README
 
 The SPATIALITE path may need to be specifically set when running the service:
 
-	SPATIALITE=/usr/local/opt/libspatialite/lib/libspatialite.dylib bin/atx-recycles-svc
+        SPATIALITE=/usr/local/opt/libspatialite/lib/libspatialite.dylib bin/atx-recycles-svc
 
 For more information, see: vendor/findit-support/README.rdoc
 
@@ -27,70 +27,70 @@ RESPONSE:
 
     {
        "origin" : {
-	  "longitude" : -97.734,
-	  "latitude" : 30.362
+          "longitude" : -97.734,
+          "latitude" : 30.362
        }
        "routes" : {
-	  "bulky" : {
-	     "route" : "BU30",
-	     "type" : "BULKY",
-	     "next_service" : {
-		"period" : "WEEK",
-		"timestamp" : 1376197200000,
-		"status" : "PENDING",
-		"date" : "08/11/2013",
-		"day" : "Sun",
-		"slip" : 0
-	     }
-	  },
-	  "brush" : {
-	     "route" : "BR22",
-	     "type" : "BRUSH",
-	     "next_service" : {
-		"period" : "WEEK",
-		"timestamp" : 1368334800000,
-		"status" : "PAST",
-		"date" : "05/12/2013",
-		"day" : "Sun",
-		"slip" : 0
-	     }
-	  },
-	  "recycle" : {
-	     "route" : "RHAU14",
-	     "type" : "RECYCLE",
-	     "next_service" : {
-		"period" : "DAY",
-		"timestamp" : 1371704400000,
-		"status" : "PENDING",
-		"date" : "06/20/2013",
-		"day" : "Thu",
-		"slip" : 0
-	     }
-	  },
-	  "yard_trimming" : {
-	     "route" : "HY10",
-	     "type" : "YARD_TRIMMING",
-	     "next_service" : {
-		"period" : "DAY",
-		"timestamp" : 1371099600000,
-		"status" : "PENDING",
-		"date" : "06/13/2013",
-		"day" : "Thu",
-		"slip" : 0
-	     }
-	  },
-	  "garbage" : {
-	     "route" : "PAH60",
-	     "type" : "GARBAGE",
-	     "next_service" : {
-		"period" : "DAY",
-		"timestamp" : 1371099600000,
-		"status" : "PENDING",
-		"date" : "06/13/2013",
-		"day" : "Thu",
-		"slip" : 0
-	     }
-	  }
+          "bulky" : {
+             "route" : "BU30",
+             "type" : "BULKY",
+             "next_service" : {
+                "period" : "WEEK",
+                "timestamp" : 1376197200000,
+                "status" : "PENDING",
+                "date" : "08/11/2013",
+                "day" : "Sun",
+                "slip" : 0
+             }
+          },
+          "brush" : {
+             "route" : "BR22",
+             "type" : "BRUSH",
+             "next_service" : {
+                "period" : "WEEK",
+                "timestamp" : 1368334800000,
+                "status" : "PAST",
+                "date" : "05/12/2013",
+                "day" : "Sun",
+                "slip" : 0
+             }
+          },
+          "recycle" : {
+             "route" : "RHAU14",
+             "type" : "RECYCLE",
+             "next_service" : {
+                "period" : "DAY",
+                "timestamp" : 1371704400000,
+                "status" : "PENDING",
+                "date" : "06/20/2013",
+                "day" : "Thu",
+                "slip" : 0
+             }
+          },
+          "yard_trimming" : {
+             "route" : "HY10",
+             "type" : "YARD_TRIMMING",
+             "next_service" : {
+                "period" : "DAY",
+                "timestamp" : 1371099600000,
+                "status" : "PENDING",
+                "date" : "06/13/2013",
+                "day" : "Thu",
+                "slip" : 0
+             }
+          },
+          "garbage" : {
+             "route" : "PAH60",
+             "type" : "GARBAGE",
+             "next_service" : {
+                "period" : "DAY",
+                "timestamp" : 1371099600000,
+                "status" : "PENDING",
+                "date" : "06/13/2013",
+                "day" : "Thu",
+                "slip" : 0
+             }
+          }
        },
     }
 
