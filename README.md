@@ -40,7 +40,7 @@ RESPONSE:
                 "status" : "PENDING",
                 "date" : "08/11/2013",
                 "day" : "Sun",
-                "slip" : 0
+                "slip" : null
              }
           },
           "brush" : {
@@ -52,7 +52,7 @@ RESPONSE:
                 "status" : "PAST",
                 "date" : "05/12/2013",
                 "day" : "Sun",
-                "slip" : 0
+                "slip" : null
              }
           },
           "recycle" : {
@@ -64,7 +64,7 @@ RESPONSE:
                 "status" : "PENDING",
                 "date" : "06/20/2013",
                 "day" : "Thu",
-                "slip" : 0
+                "slip" : null
              }
           },
           "yard_trimming" : {
@@ -76,7 +76,7 @@ RESPONSE:
                 "status" : "PENDING",
                 "date" : "06/13/2013",
                 "day" : "Thu",
-                "slip" : 0
+                "slip" : null
              }
           },
           "garbage" : {
@@ -88,7 +88,7 @@ RESPONSE:
                 "status" : "PENDING",
                 "date" : "06/13/2013",
                 "day" : "Thu",
-                "slip" : 0
+                "slip" : null
              }
           }
        },

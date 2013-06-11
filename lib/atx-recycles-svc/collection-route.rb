@@ -2,12 +2,19 @@ require "ice_cube"
 
 module ATXRecyclesSvc
 
+  # Implements a search for a collection rotue and next delivery date
+  # for a specified service.
   class CollectionRoute
     
     include IceCube 
-       
-    TYPES = [:RECYCLE, :BRUSH, :BULKY, :GARBAGE, :YARD_TRIMMING]          
     
+    # The service types we support.   
+    TYPES = [:RECYCLE, :BRUSH, :BULKY, :GARBAGE, :YARD_TRIMMING]
+    
+    # Parameters:
+    # db:: handle for opened Spatialite database
+    # type:: a CollectionRoute::TYPES value
+    # table:: name of the database table (default is calculate from type)
     def initialize(db, type, table = nil)
       unless TYPES.include?(type)
         raise "unknown facility type \"#{type}\""            
@@ -18,14 +25,26 @@ module ATXRecyclesSvc
       @table = table || "#{type.downcase}_collection_routes".to_sym
     end    
 
-    START_DATE = DateTime.new(2012,12,31)    
+    # Start date for calculating recurring schedules.
+    START_DATE = Date.new(2012, 12, 31)    
     
+    # Recycling pickup is every other week, identified as "A" or "B" week.
     RECYCLING_PICKUP_OFFSET = {
       "A" => 0, # week A -> first week
       "B" => 7, # week B -> second week
     }.freeze
     
+    # Keyed by days on which normal pickup slips due to holiday.
+    # Value is number of days pickup slips.
+    HOLIDAY_SLIPS = {
+      Date.new(2013, 11, 28).jd => 1, # Thanksgiving (Thu)
+      Date.new(2013, 11, 29).jd => 1,
+      Date.new(2013, 12, 25).jd => 1, # Christmas (Wed)
+      Date.new(2013, 12, 26).jd => 1,
+      Date.new(2013, 12, 27).jd => 1,
+    }.freeze    
     
+    # Given a day name (e.g. "Sunday") return a day-of-week number ("Sunday" => 0)
     def self.day_name_to_num(name)
       case name.strip.downcase
       when /^sun/
@@ -47,7 +66,13 @@ module ATXRecyclesSvc
       end
     end
     
-    
+    # Calculate the Date when next service happens for a recurring service.
+    #
+    # Parameters:
+    # start_date:: The base Date used for calculating recurring schedule.
+    # day_name:: Day of week the service happens, e.g. "Wednesday"
+    # week_increment:: How frequently service occurs. Default is weekly (1).
+    #
     def self.next_service(start_date, day_name, week_increment = 1)
       n = day_name_to_num(day_name)
       # using ice_cube gem for scheduling
@@ -58,16 +83,30 @@ module ATXRecyclesSvc
     end
 
     
-    # FIXME
+    # Indicate whether a given service date shouldl slip due to holiday.
+    # Returns either number of days service should slip, or nil for no slip.
     def self.holiday_slip(date)
-      0
+      HOLIDAY_SLIPS[date.jd]
     end
     
     
+    # Calculate a status identifier for the pickup date.
+    #
+    # Parameters:
+    # service_date:: A Date instance when the service will happen
+    # service_period:: Either :DAY or :WEEK
+    # today:: A Date instance for current date (default is today)
+    #
+    # Return value:
+    # :ACTIVE:: Service is about to happen or is happening now.
+    # :PENDING:: Service is upcoming.
+    # :PENDING:: Service has already passed.
+    #
     def self.status(service_date, service_period, today = Date.today)      
       n = (service_date - today).to_i
       case service_period
       when :DAY
+        # mark active if pickup is today or tomorrow
         if n > 1
           :PENDING
         elsif n >= 0
@@ -76,6 +115,7 @@ module ATXRecyclesSvc
           :PAST
         end   
       when :WEEK
+        # mark active scheduled to start next week or is happening this week
         if n > 6
           :PENDING
         elsif n >= -5
@@ -89,6 +129,13 @@ module ATXRecyclesSvc
     end
     
     
+    # Locate a service route and calculate next delivery date for a given location.
+    #
+    # Parameters:
+    # origin:: A FindIt::Location instance.
+    #
+    # Returns a hash of values.
+    #
     def search(origin)  
         
       route = @db[@table] \
@@ -129,11 +176,12 @@ module ATXRecyclesSvc
                 
       end  
       
+      # deterine if service date should slip due to holiday
       if service_period == :DAY
         slip_days = self.class.holiday_slip(next_service)
-        next_service += slip_days
+        next_service += slip_days unless slip_days.nil?
       else
-        slip_days = 0
+        slip_days = nil
       end
       
       {
