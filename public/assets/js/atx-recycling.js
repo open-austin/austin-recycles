@@ -142,32 +142,48 @@ function addMarkerAtPosition(LatLng) {
   reverseGeocode(lat, lng);
 }
 
+function format_next_service_date(next_service) {
+  if (next_service.period == "WEEK") {
+    return "week of " + next_service.date;
+  } else {
+    return next_service.day + ", " + next_service.date;
+  }
+}
+
 function getRecycling(lat, lng) {
   document.getElementById('recycling').innerHTML = '<p>Looking up info...</p>';
     var data;
     var recycleText = "";
     $.ajax({
       type: "GET",
-      url: "http://atx-recycles-svc.open-austin.org/svc?latitude=" + lat + "&longitude=" + lng,
+      url: "http://localhost:4567/svc?latitude=" + lat + "&longitude=" + lng,
+      //url: "http://atx-recycles-svc.open-austin.org/svc?latitude=" + lat + "&longitude=" + lng,
       contentType: "application/json; charset=utf-8",
       dataType: "jsonp",
       success: function (data) {
-          recycleText = "";
-          $.each(data.routes, function(key, val){
-              if(val.type === "GARBAGE") {
-                recycleText = recycleText + "<p><strong>Garbage day:</strong> " + val.service.day + "</p>";
-              } else if(val.type === "RECYCLE") {
-                recycleText = recycleText + "<p><strong>Recycle pickup:</strong> " + val.service.nextrecycle + "</p>";
-              } else if(val.type === "BULKY") {
-                recycleText = recycleText + "<p><strong>Bulky pickup:</strong> " + val.service.nextservdate + "</p>";
-              } else if(val.type === "BRUSH") {
-                recycleText = recycleText + "<p><strong>Brush pickup:</strong> " + val.service.nextservdate + "</p>";
-              }
-          });
-          if(recycleText === "") {
-            recycleText = "<p>Nothing found.</p>";
+          r = data.routes;
+          t = "";
+          if (r) {
+            if (r.garbage) {
+              t = t + "<p><strong>Garbage:</strong> " + format_next_service_date(r.garbage.next_service) + "</p>";
+            }
+            if (r.yard_trimming) {
+              t = t + "<p><strong>Yard trimmings:</strong> " + format_next_service_date(r.yard_trimming.next_service) + "</p>";
+            }
+            if (r.recycle) {
+              t = t + "<p><strong>Recycling:</strong> " + format_next_service_date(r.recycle.next_service) + "</p>";
+            }
+            if (r.brush) {
+              t = t + "<p><strong>Brush:</strong> " + format_next_service_date(r.brush.next_service) + "</p>";
+            }
+            if (r.bulky) {
+              t = t + "<p><strong>Bulky:</strong> " + format_next_service_date(r.bulky.next_service) + "</p>";
+            }
           }
-          $('#recycling').html(recycleText);
+          if(t === "") {
+            t = "<p>Nothing found.</p>";
+          }
+          $('#recycling').html(t);
       }
     });
 }

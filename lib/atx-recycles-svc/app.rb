@@ -9,18 +9,23 @@ module ATXRecyclesSvc
 
     def initialize(options = {})
       @db = Sequel.spatialite(DATABASE)
-      @finders = []
+      @finders = {}
       ATXRecyclesSvc::CollectionRoute::TYPES.each do |type|
-        @finders << ATXRecyclesSvc::CollectionRoute.new(@db, type)
+        @finders[type] = ATXRecyclesSvc::CollectionRoute.new(@db, type)
       end
     end
     
     
     def search(lat, lng)
-      origin = FindIt::Location.new(lat, lng, :DEG)      
+      origin = FindIt::Location.new(lat, lng, :DEG) 
+      routes = {}
+      @finders.each do |type, finder|
+        a = finder.search(origin)
+        routes[type.to_s.downcase.to_sym] = a if a
+      end
       {
         :origin => origin.to_h,
-        :routes => @finders.map {|f| f.search(origin)}.reject {|a| a.nil?}
+        :routes => routes,
       }
     end
  
