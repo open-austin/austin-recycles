@@ -25,52 +25,76 @@ REQUEST:
 
 RESPONSE:
 
-	{
-	   "origin":{
-	      "latitude":30.362,
-	      "longitude":-97.734
-	   },
-	   "routes":[
-	      {
-	         "type":"GARBAGE",
-	         "route":"PAH60",
-	         "service":{
-	            "day":"THURSDAY"
-	         }
-	      },
-	      {
-	         "type":"RECYCLE",
-	         "route":"RHAU14",
-	         "service":{
-	            "day":"THURSDAY",
-	            "week":"A",
-	            "nextrecycle":"03/14/2013"
-	         }
-	      },
-	      {
-	         "type":"BRUSH",
-	         "route":"BR22",
-	         "service":{
-	            "nextservdate":"05/12/2013"
-	         }
-	      },
-	      {
-	         "type":"BULKY",
-	         "route":"BU30",
-	         "service":{
-	            "nextservdate":"08/11/2013"
-	         }
-	      },
-	      {
-	         "type":"YARD_TRIMMING",
-	         "route":"HY10"
-	      }
-	   ]
-	}
+    {
+       "origin" : {
+	  "longitude" : -97.734,
+	  "latitude" : 30.362
+       }
+       "routes" : {
+	  "bulky" : {
+	     "route" : "BU30",
+	     "type" : "BULKY",
+	     "next_service" : {
+		"period" : "WEEK",
+		"timestamp" : 1376197200000,
+		"status" : "PENDING",
+		"date" : "08/11/2013",
+		"day" : "Sun",
+		"slip" : 0
+	     }
+	  },
+	  "brush" : {
+	     "route" : "BR22",
+	     "type" : "BRUSH",
+	     "next_service" : {
+		"period" : "WEEK",
+		"timestamp" : 1368334800000,
+		"status" : "PAST",
+		"date" : "05/12/2013",
+		"day" : "Sun",
+		"slip" : 0
+	     }
+	  },
+	  "recycle" : {
+	     "route" : "RHAU14",
+	     "type" : "RECYCLE",
+	     "next_service" : {
+		"period" : "DAY",
+		"timestamp" : 1371704400000,
+		"status" : "PENDING",
+		"date" : "06/20/2013",
+		"day" : "Thu",
+		"slip" : 0
+	     }
+	  },
+	  "yard_trimming" : {
+	     "route" : "HY10",
+	     "type" : "YARD_TRIMMING",
+	     "next_service" : {
+		"period" : "DAY",
+		"timestamp" : 1371099600000,
+		"status" : "PENDING",
+		"date" : "06/13/2013",
+		"day" : "Thu",
+		"slip" : 0
+	     }
+	  },
+	  "garbage" : {
+	     "route" : "PAH60",
+	     "type" : "GARBAGE",
+	     "next_service" : {
+		"period" : "DAY",
+		"timestamp" : 1371099600000,
+		"status" : "PENDING",
+		"date" : "06/13/2013",
+		"day" : "Thu",
+		"slip" : 0
+	     }
+	  }
+       },
+    }
 
 ## Helpful notes
-* The atx-recycling.html file may be used to test the service response directly from the open-austin.org server.
-* The atx-recycling-dev.html file is the same as atx-recycling.html, but points to localhost for testing the service in local development.
 * It may be helpful to use the spatialite gui db browser app to browse the raw database tables.
 * Check the vendor/README file for instructions for installing the findit-support package.
 
