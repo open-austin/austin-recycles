@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>ATX Recycles - Austin Recycling and Collection</title>
+  <title>Austin Recycles - Austin Recycling and Collection</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Austin, Texas, trash and recycling schedule information.">
   <meta name="author" content="Open Austin">
@@ -16,7 +16,7 @@
     <script src="assets/js/html5shiv.js"></script>
   <![endif]-->
 
-  <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+  <script type='text/javascript' src="assets/js/jquery-1.10.1.min.js"></script>
   <script type='text/javascript' src="assets/js/knockout-2.2.1.js"></script>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
   <script type="text/javascript" src="assets/js/austin-recycles.js"></script>
@@ -31,7 +31,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="brand" href="index.html">ATX Recycles</a>
+        <a class="brand" href="index.html">Austin Recycles</a>
         <div class="nav-collapse collapse">
           <ul class="nav">
             <li><a href="about.html">About</a></li>
@@ -48,10 +48,46 @@
       <div class="span9">
         <h1>When do we put our carts out?</h1>
 
-        <div id="map">
-          <div id="map_canvas" style="width:100%; height:400px"></div>
-          <div id="crosshair"></div>
+        <div id="map_canvas" style="width:100%; height:400px; margin-bottom: 2em"></div>
+        
+        <div id="controls">
+          <form onsubmit="return actionSetAddress(this.address.value)">
+            <!-- ko if: showStartButton -->
+            <button type="button" class="btn" style="margin-right: 0.5em"
+                title="Use geolocation feature built into my device to find current location."
+                onclick="return actionLocateMe()"><i class="icon-globe"></i> <small>START</small></button>
+            <!-- /ko -->
+            <input style="width: 400px; margin-bottom: 0" type="text" name="address" placeholder="Enter address" data-bind="value: address" />
+            <button type="submit" class="btn"
+                title="Search for this address"><i class="icon-search"></i></button>
+            <button type="button" class="btn btn-link"
+                title="Return to initial location."
+                onclick="return actionReset()"><i class="icon-retweet"></i> <small>RESET</small></button>
+          </form>
         </div>
+        
+        <div id="alerts" data-bind="foreach: alerts">
+          <div class="alert" data-bind="css: 'alert-' + type">
+          <!-- ko if: isDismissable -->
+          <button type="button" class="close" data-dismiss="alert"><i class="icon-remove-sign"></i></button>
+          <!-- /ko -->
+          <!-- ko if: icon -->
+          <img style="padding-right: 5px" data-bind="attr: {src: 'assets/img/' + icon.src, height: icon.height, width: icon.width}" />
+          <!-- /ko -->
+          <span data-bind="text: message"></span>
+          </div>
+        </div>
+        
+        <!-- ko if: pickups().length > 0 -->
+        <h2>Next Service</h2>
+        <div data-bind="foreach: pickups">
+          <p class="pickup" data-bind="css: 'pickup-' + status">
+          <span class="pickup-title" data-bind="text: title + ':'"></span>
+          <span class="pickup-value" data-bind="text: next_pickup"></span>
+          </p>
+        </div>
+        <!-- /ko -->
+        
       </div>
 
       <div class="span3">
@@ -74,38 +110,7 @@
 
     </div>
 
-    <div class="row">
-
-      <div class="span6">
-      
-        <form onsubmit="return actionSetAddress(this.address.value)">
-          <input type="text" name="address" placeholder="Enter address" data-bind="value: address" />
-          <input type="submit" value="Go" class="btn" />
-          <input type="button" value="Find Me" class="btn" onclick="return actionLocateMe()" />
-        </form>
-        
-        <div id="alerts" data-bind="foreach: alerts">
-          <div class="alert" data-bind="css: 'alert-' + type">
-          <button type="button" class="close" data-bind="if: isDismissable" data-dismiss="alert">&times;</button>
-          <img data-bind="if: icon, attr: {src: 'assets/img/' + icon}" />
-          <span data-bind="text: message"></span>
-          </div>
-        </div>
-        
-        <h2>Next Service</h2>
-        <div data-bind="foreach: pickups">
-          <p class="pickup" data-bind="css: 'pickup-' + status">
-          <span class="pickup-title" data-bind="text: title + ':'"></span>
-          <span class="pickup-value" data-bind="text: next_pickup"></span>
-          </p>
-        </div>
-        
-      </div>
-
-    </div> <!-- /row -->
-
-    <hr>
-
+    <hr />
     <footer>
       <p>&copy; Open Austin 2013</p>
     </footer>

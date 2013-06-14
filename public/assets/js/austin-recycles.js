@@ -2,6 +2,7 @@
 var map;
 var geocoder;
 var currentMarker = null;
+var initialLocation = null;
 
 
 function initialize(options) {
@@ -25,10 +26,20 @@ function initialize(options) {
   
   map = new google.maps.Map(document.getElementById(mapId), mapOptions);
   google.maps.event.addListener(map, 'click', function(event) {
-    setCurrentLocation(event.latLng);
+    setCurrentLocation(event.latLng, {'recenter': false});
   });
 }
 
+
+/**
+ * Action called when user requests a reset to initial location.
+ */
+function actionReset() {
+  if (initialLocation) {
+    setCurrentLocation(initialLocation.latLng, {'address' : initialLocation.address});    
+  }
+  return false; // suppress form submission
+}
 
 
 /**
@@ -55,9 +66,7 @@ function actionLocateMe() {
     view.alert("Sorry ... your device does not support geolocation.");
   } else {
     navigator.geolocation.getCurrentPosition(function(result) {
-      var loc = new google.maps.LatLng(result.coords.latitude, result.coords.longitude);
-      map.setCenter(loc);
-      setCurrentLocation(loc);
+      setCurrentLocation(new google.maps.LatLng(result.coords.latitude, result.coords.longitude));
     });
   }
   return false; // suppress form action
@@ -81,32 +90,40 @@ function setCurrentAddress(address) {
       if (status != 'OK' || results.length == 0) {
         view.alert("Could not locate the address you specified. (error code " + status + ")");
       } else {
-        var r = results[0];
-        map.setCenter(r.geometry.location);
-        setCurrentLocation(r.geometry.location, r.formatted_address);
+        setCurrentLocation(r.geometry.location, {'address' : results[0].formatted_address});
       }        
-    });  
+    }
+  );  
 }
 
 
 /**
  * Perform a query based on a LatLng location.
  *
- * Obtain the recycling information for the specified location.
+ * Query the Austin Recycles web service for the given location.
  * 
- * Update the street address displayed, either with the information
- * provided, or if none provided, reverse geolocation is performed
- * on the location.
+ * Places a marker at (or moves the existing marker to) the location.
  * 
- * The map marker is moved to the specified location.
+ * Saves the street address of the location to view.address().
  * 
- * The Austin Recycles web service is queried for the specified location.
+ * Options:
+ * 
+ * 'address' - Street address of location. If not specified
+ * then reverse geolocation is performed on the location.
+ * 
+ * 'recenter' - If true, then map is recentered to specified
+ * location. If false, then map is not moved. Default is true.
+ * 
  */
-function setCurrentLocation(loc, address) {    
+function setCurrentLocation(loc, options) {    
   view.reset();
   
-  if (address) {
-    view.address(address);   
+  if (! options) {
+    options = {};
+  }
+  
+  if (options.address) {
+    view.address(options.address);   
   } else {
     geocoder.geocode({'latLng': loc}, function(results, status) {
       if (status != 'OK' || results.length == 0) {
@@ -115,6 +132,14 @@ function setCurrentLocation(loc, address) {
         view.address(results[0].formatted_address);
       }
     });
+  }
+  
+  if (! initialLocation) {
+    initialLocation = {'latLng' : loc, 'address' : view.address()};
+  }
+  
+  if (options.recenter === undefined || options.recenter) {
+    map.setCenter(loc);
   }
   
   if (! currentMarker) {
@@ -181,11 +206,13 @@ var ViewModel = function() {
   self.address = ko.observable("");
   self.pickups = ko.observableArray();
   self.alerts = ko.observableArray();
+  self.showStartButton = ko.observable(navigator.geolocation !== undefined);
   
   self.reset = function() {
     self.address("");
     self.pickups.removeAll();
     self.alerts.removeAll();
+    self.showStartButton(false);
   }
   
   self.alert = function(message, options) {
@@ -210,7 +237,7 @@ var ViewModel = function() {
         a.isDismissable = false;
       }
       if (a.icon === undefined) {
-        a.icon = 'icon-busy.gif';        
+        a.icon = {'src': 'icon-busy.gif', 'height': 32, 'width': 32};        
       }
       break;
     case 'error':
