@@ -21,6 +21,7 @@ module AustinRecycles
    end   
    
    get '/svc' do
+     sleep 5 # for testing
      params = request.env['rack.request.query_hash']
      lat = params['latitude'].to_f
      lng = params['longitude'].to_f
