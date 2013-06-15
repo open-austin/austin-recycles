@@ -16,14 +16,20 @@ module AustinRecycles
      helpers Sinatra::Jsonp
    end
    
+   before do
+     @params = request.env['rack.request.query_hash']
+     if @params.has_key?("delay")
+       sleep(@params["delay"].to_i)
+     end
+   end
+   
    get '/' do
      redirect "/index.html"
    end   
    
    get '/svc' do
-     params = request.env['rack.request.query_hash']
-     lat = params['latitude'].to_f
-     lng = params['longitude'].to_f
+     lat = @params['latitude'].to_f
+     lng = @params['longitude'].to_f
      content_type :json
      jsonp @@app.search(lat, lng)
    end

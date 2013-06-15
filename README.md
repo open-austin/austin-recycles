@@ -95,7 +95,25 @@ RESPONSE:
     }
 
 ## Helpful notes
-* It may be helpful to use the spatialite gui db browser app to browse the raw database tables.
-* Check the vendor/README file for instructions for installing the findit-support package.
 
-## To-do
+It may be helpful to use the spatialite gui db browser app to browse the raw database tables.
+
+Check the vendor/README file for instructions for installing the findit-support package.
+
+You can add query parameters to the application to assist in debugging. Example:
+
+    http://localhost:4567/?svc=http://austin-recycles.open-austin.org/svc&delay=5
+    
+The supported parameters are:
+
+    * svc -- URL of the web service. By default, the web service URL is calculated
+      from the document URL, i.e. the web service is assumed to be running on the
+      same server as the application. You may want to use this, for instance, if you
+      are debugging the application locally, but want to use an instance of the web
+      service elsewhere.
+      
+    * delay -- A delay (in seconds) added for web service responses. The delay value
+      is passed to the web service, which will delay by that amount before responding.
+      I've used this, for instance, when I wanted to verify that the "busy throbber" is
+      displaying correctly.
+

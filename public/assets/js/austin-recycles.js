@@ -5,6 +5,10 @@ var currentMarker = null;
 var initialLocation = null;
 
 
+/**
+ * Initialize the Austinn Recycles application.
+ * @param options
+ */
 function initialize(options) {
   
   if (! options) {
@@ -162,13 +166,71 @@ function setCurrentLocation(loc, options) {
     
 }
 
-var base_url = 'http://localhost:4567/svc';
-//var base_url = 'http://austin-recycles.open-austin.org/svc';
 
-function buildQuery(loc) {
-  return base_url + "?latitude=" + loc.lat() + "&longitude=" + loc.lng();  
+/**
+ * Calculate the base URL of a document.
+ * @param url
+ * @returns {string}
+ * 
+ * For example, the base URL of "http://example.com/foo/bar/page.html"
+ * is "http://example.com/foo/bar".
+ */
+function getBaseURL(url) {
+  var i;
+  if ((i = url.lastIndexOf('#')) > 0) {
+    url = url.substr(0, i);
+  }
+  if ((i = url.lastIndexOf('?')) > 0) {
+    url = url.substr(0, i);
+  }
+  if ((i = url.lastIndexOf('/')) > 0) {
+    url = url.substr(0, i);
+  }
+  return url;
 }
 
+
+/**
+ * Create an object from the query parameters of the given URL.
+ * @param url
+ * @returns {object}
+ * 
+ * Example:
+ *   var params = getQueryParams("http://example.com/page?color=red");
+ *   alert(params.color);
+ */
+function getQueryParams(url) {
+  var i;
+  if ((i = url.indexOf('?')) < 0) {
+    return {};
+  }
+  var params = {};
+  url.substr(i+1).split('&').forEach(function(s) {
+    var b = s.split('=');
+    params[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
+  });
+  return params;
+}
+
+var QUERY_PARAMS = getQueryParams(document.URL);
+var URL_RECYCLES_SVC = (QUERY_PARAMS.svc ? QUERY_PARAMS.svc : getBaseURL(document.URL) + "/svc");
+
+
+/**
+ * Build a web service query URL for a given LatLng location.
+ * @param loc
+ * @returns {String}
+ */
+function buildQuery(loc) {
+  var q = {
+    'latitude' : loc.lat(),
+    'longitude' : loc.lng(),
+  };
+  if (QUERY_PARAMS.delay) {
+    q['delay'] = QUERY_PARAMS.delay;
+  }
+  return URL_RECYCLES_SVC + "?" + $.param(q);
+}
 
 
 /**
