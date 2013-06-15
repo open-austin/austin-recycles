@@ -94,7 +94,8 @@ function setCurrentAddress(address) {
       if (status != 'OK' || results.length == 0) {
         view.alert("Could not locate the address you specified. (error code " + status + ")");
       } else {
-        setCurrentLocation(r.geometry.location, {'address' : results[0].formatted_address});
+        var r = results[0];
+        setCurrentLocation(r.geometry.location, {'address' : r.formatted_address});
       }        
     }
   );  
