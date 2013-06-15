@@ -1,11 +1,22 @@
-# About
-Provides a web service that provides trash and recycling pickup information for the City of Austin.
+# Austin Recycles
 
-More info here: http://atxcivichack3.wikispaces.com/Recycling+Pickup+App
+## About
+
+"Austin Recycles" consists of a web application plus a web service that
+provides trash and recycling pickup information for the City of Austin.
+
+More info here: http://atxhack.wikispaces.com/Austin+Recycles
+
+Demo site: http://austin-recycles.open-austin.org/
+
+Issues and support queue: https://github.com/open-austin/austin-recycles/issues
 
 ## Usage
-Run bin/austin-recycles either from a command line for development, or
-via Phusion Passenger for production.
+
+First start the web service.  For development, run "bin/austin-recycles" from
+a command line. For production, run via Phusion Passenger.
+
+Then, browse the "index.html" page.
 
 ## Requirements
 
@@ -14,11 +25,18 @@ into the vendor directory. See: vendor/README
 
 The SPATIALITE path may need to be specifically set when running the service:
 
-        SPATIALITE=/usr/local/opt/libspatialite/lib/libspatialite.dylib bin/austin-recycles
+    SPATIALITE=/usr/local/opt/libspatialite/lib/libspatialite.dylib bin/austin-recycles
 
 For more information, see: vendor/findit-support/README.rdoc
 
-## Example:
+## Web Service API:
+
+The web service provides a simple interface to retrieve service information
+for a given location. The location is specified as degrees latitude and
+longitude.
+
+Here is an example:
+
 REQUEST:
 
     GET http://localhost:4567/svc?latitude=30.362&longitude=-97.734 
@@ -93,27 +111,47 @@ RESPONSE:
           }
        },
     }
+    
+For each route, the "next_service" fields indicate:
+
+* timestamp - The service date, milliseconds since epoch.
+* period - Either DAY (the timestamp indicates the day on which service should occur)
+  or WEEK (the timestamp indicates the start of the week in which service should occur)
+* date - Printable date, from the service date.
+* day - Printable day of week, from the service date.
+* status - ACTIVE (the service is happening now or about to happen), PENDING (the service
+  is in the future), or PAST (the service has already occurred).
+* slip - Number of days the service has slipped due to a holiday, or "null" if no slip.
 
 ## Helpful notes
 
-It may be helpful to use the spatialite gui db browser app to browse the raw database tables.
+### Installing findit-support and spatialite
 
-Check the vendor/README file for instructions for installing the findit-support package.
+Check the "vendor/README" file for instructions for installing the findit-support package.
+
+### Query parameters for debug
 
 You can add query parameters to the application to assist in debugging. Example:
 
-    http://localhost:4567/?svc=http://austin-recycles.open-austin.org/svc&delay=5
+    http://localhost/index.html?svc=http://austin-recycles.open-austin.org/svc&delay=5
     
 The supported parameters are:
 
-    * svc -- URL of the web service. By default, the web service URL is calculated
-      from the document URL, i.e. the web service is assumed to be running on the
-      same server as the application. You may want to use this, for instance, if you
-      are debugging the application locally, but want to use an instance of the web
-      service elsewhere.
-      
-    * delay -- A delay (in seconds) added for web service responses. The delay value
-      is passed to the web service, which will delay by that amount before responding.
-      I've used this, for instance, when I wanted to verify that the "busy throbber" is
-      displaying correctly.
+* svc -- URL of the web service. By default, the web service URL is calculated
+  from the document URL, i.e. the web service is assumed to be running on the
+  same server as the application. You may want to use this, for instance, if you
+  are debugging the application locally, but want to use an instance of the web
+  service elsewhere.
+  
+* delay -- A delay (in seconds) added for web service responses. The delay value
+  is passed to the web service, which will delay by that amount before responding.
+  I've used this, for instance, when I wanted to verify that the "busy throbber" is
+  displaying correctly.
 
+### Database browser
+
+If you are working with the web service, you may want a tool to browse the database.
+The SpatiaLite GUI app is a good tool. You also can use a SQLite tool, even though the
+geometry columns will just appear as blobs. One option is:
+
+    https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/
