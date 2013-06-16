@@ -42,7 +42,6 @@
   </div>
 
   <div class="container">
-
     <div class="row">
 
       <div class="span9">
@@ -50,7 +49,7 @@
 
         <div id="map_canvas" style="width:100%; height:400px; margin-bottom: 2em"></div>
         
-        <div id="controls">
+        <div id="controls-block">
           <form onsubmit="return actionSetAddress(this.address.value)">
             <!-- ko if: showStartButton -->
             <button type="button" class="btn" style="margin-right: 0.5em"
@@ -66,7 +65,7 @@
           </form>
         </div>
         
-        <div id="alerts" data-bind="foreach: alerts">
+        <div id="alerts-block" data-bind="foreach: alerts">
           <div class="alert" data-bind="css: 'alert-' + type">
           <!-- ko if: isDismissable -->
           <button type="button" class="close" data-dismiss="alert"><i class="icon-remove-sign"></i></button>
@@ -80,41 +79,34 @@
         
         <!-- ko if: pickups().length > 0 -->
         <h2>Next Service</h2>
-        <div data-bind="foreach: pickups">
-          <p class="pickup" data-bind="css: 'pickup-' + status">
-          <span class="pickup-title" data-bind="text: title + ':'"></span>
-          <span class="pickup-value" data-bind="text: next_pickup"></span>
-          </p>
+        <div id="services-block" data-bind="foreach: pickups">
+          <div class="service" data-bind="css: 'service-status-' + status + ' service-type-' + type">
+            <span class="service-title" data-bind="text: title + ':'"></span>
+            <span class="service-value" data-bind="text: next_pickup"></span>
+            <span class="service-note" data-bind="text: service_note"></span>
+          </div>
         </div>
         <!-- /ko -->
         
-      </div>
+      </div><!-- .span9 -->
 
       <div class="span3">
+      
           <div class="logo">
-            <a href="http://www.open-austin.org/">
-            <img alt="Open Austin" height="46" src="assets/img/logo-openaustin-230x46.png" title="Open Austin" width="230" /></a>
+            <a href="http://www.open-austin.org/"><img alt="Open Austin" height="46" src="assets/img/logo-openaustin-230x46.png" title="Open Austin" width="230" /></a>
           </div>
-
+          
           <div class="logo">
-            <a href="http://austintexas.gov/department/austin-resource-recovery">
-            <img alt="Austin Resource Recovery" height="95" src="assets/img/ARRlogo_coa_230.png" title="Austin Resource Recovery" width="230" /></a>
+            <a href="http://austintexas.gov/department/austin-resource-recovery"><img alt="Austin Resource Recovery" height="95" src="assets/img/ARRlogo_coa_230.png" title="Austin Resource Recovery" width="230" /></a>
           </div>
-
+          
           <div class="logo">
-            <a href="http://austintexas.gov/">
-            <img alt="City of Austin" height="150" src="assets/img/COA_Seal_150.png" title="City of Austin" width="150" /></a>
+            <a href="http://austintexas.gov/"><img alt="City of Austin" height="150" src="assets/img/COA_Seal_150.png" title="City of Austin" width="150" /></a>
           </div>
+          
+      </div><!-- .span3 -->
 
-      </div>
-
-    </div>
-
-    <hr />
-    <footer>
-      <p>&copy; Open Austin 2013</p>
-    </footer>
-
+    </div><!-- .row -->
   </div> <!-- /container -->
 
 <!-- bootstrap javascript

@@ -148,6 +148,11 @@ The supported parameters are:
   I've used this, for instance, when I wanted to verify that the "busy throbber" is
   displaying correctly.
 
+* status -- Override calculated status of a service. The format is "id:status[,id:status...]".
+  Example usage: http://stuff?status=recycle:active,bulky:past
+  Valid id values are: garbage, yard_trimming, recycle, brush, bulky.
+  Valid status values are: active, pending, past.
+
 ### Database browser
 
 If you are working with the web service, you may want a tool to browse the database.

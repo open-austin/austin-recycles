@@ -1,6 +1,7 @@
 body {
-  padding-top: 60px;
-  padding-bottom: 40px;
+  padding-top: 50px;
+  padding-bottom: 20px;
+  color: #628846;
 }
 
 .logo {
@@ -10,19 +11,47 @@ body {
   margin-left: 20px;
 }
 
-#
+h1, h2 {margin: 0; padding: 0;}
 
-#busy {
-  float: left;
-	height: 32px;
-	width: 32px;
-}
-#message {
-	margin-left: 37px;
+.service {
+	margin: 2px;
+	margin-left: 0;
+	margin-right: 5px;
+	padding-top: 5px;
+	padding-left: 42px;
+	padding-right: 4px;
+  border: solid #628846 2px;
+	border-radius: 5px;
+	height: 36px;
+	width: 295px;
+	float: left;
+	background-color: #CFEBB9;
+	/* background-image specified by service-type */
+  background-repeat: no-repeat;
+  background-position: 4px 4px;
+  line-height: 110%;
 }
 
-.pickup {padding: 5px;}
-.pickup-title {font-weight: bold;}
-.pickup-status-active {background: #dfd;}
-.pickup-status-pending {}
-.pickup-status-past {color: #999; font-style: italic;}
+/* choose icon for service type */
+.service-type-garbage {background-image: url(../img/icon-trash-32.png);}
+.service-type-yard_trimming {background-image: url(../img/icon-trash-32.png);}
+.service-type-recycle {background-image: url(../img/icon-recycle-32.png);}
+.service-type-brush {background-image: url(../img/icon-tree-32.png);}
+.service-type-bulky {background-image: url(../img/icon-couch-32.png);}
+
+/* override .service styles for given service status */
+body .service-status-pending {
+  /* default .service styles are for "pending" status */
+}
+body .service-status-active {
+  background-color: #FFD5E8;
+}
+body .service-status-past {
+  border: solid #999 2px;
+  background-color: #E7EBE4;
+  color: #999;
+  font-style: italic;
+}
+
+.service-title {font-weight: bold;}
+.service-note {display: block; font-size: 90%;}

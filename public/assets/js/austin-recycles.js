@@ -233,11 +233,17 @@ function buildQuery(loc) {
   return URL_RECYCLES_SVC + "?" + $.param(q);
 }
 
+var SERVICE_NOTES = {
+  'active' : "Items out for service now.",
+  'pending' : "Items go out night before.",
+  'past' : "Sorry, no upcoming service scheduled.",
+};
 
 /**
  * Class that represents a given pickup service.
  */
-var PickupService = function(title, next_service) {
+var PickupService = function(type, title, next_service) {
+  this.type = type;
   this.title = title;
   
   if (next_service.period == "WEEK") {
@@ -246,7 +252,23 @@ var PickupService = function(title, next_service) {
     this.next_pickup = next_service.day + ", " + next_service.date;
   }
   
-  this.status = "status-" + next_service.status.toLowerCase();
+  this.status = next_service.status.toLowerCase();
+  
+  // override specified by URL parameter such as:
+  // ?status=bulky:active,brush:past
+  if (QUERY_PARAMS['status']) {
+    var a = QUERY_PARAMS['status'].split(',');
+    for ( var i = 0; i < a.length; ++i) {
+      var b = a[i].split(':');
+      if (b[0] == type) {
+        this.status = b[1];
+        break;
+      }
+    }
+  }
+  
+  this.service_note = SERVICE_NOTES[this.status];
+  console.log(this);
 }
 
 
@@ -325,7 +347,7 @@ var ViewModel = function() {
     SERVICES.forEach(function(svc) {
       var route = routes[svc.id];
       if (route && route.next_service) {
-        var o = new PickupService(svc.title, route.next_service);
+        var o = new PickupService(svc.id, svc.title, route.next_service);
         self.pickups.push(o);
       }    
     });
