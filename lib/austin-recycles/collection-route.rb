@@ -150,11 +150,13 @@ module AustinRecycles
         # uses :SERVICE_DA (day of week, e.g. "Wednesday")
         next_service = self.class.next_service(START_DATE, route[:SERVICE_DA])
         service_period = :DAY
+        recurrence = :WEEKLY
           
       when :YARD_TRIMMING
         # uses :AREA_SERVI (day of week, e.g. "Wednesday")
         next_service = self.class.next_service(START_DATE, route[:AREA_SERVI])
         service_period = :DAY
+        recurrence = :WEEKLY
         
       when :RECYCLE
         # uses :SERVICE_DA (day of week, e.g. "Wednesday") and :SERVICE_WE ("A" or "B")
@@ -164,12 +166,14 @@ module AustinRecycles
         raise "bad SERVICE_WE value \"#{route[:SERVICE_WE]}\"" unless start_date_offset
         next_service = self.class.next_service(START_DATE + start_date_offset, route[:SERVICE_DA], 2)
         service_period = :DAY
+        recurrence = :BIWEEKLY
 
       when :BRUSH, :BULKY
         # uses :NEXT_SERVI (timestamp, e.g. 2456474.5)
         raise "column :NEXT_SERVI undefined" unless route.has_key?(:NEXT_SERVI)
         next_service = Date.jd(route[:NEXT_SERVI])
         service_period = :WEEK
+        recurrence = :BIANNUAL
 
       else
         raise "unknown collection type #{type}"
@@ -194,6 +198,7 @@ module AustinRecycles
           :slip => slip_days,
           :status => self.class.status(next_service, service_period),
           :period => service_period,
+          :recurrence => recurrence,
         },
       } 
       
