@@ -21,6 +21,14 @@ module AustinRecycles
      if @params.has_key?("delay")
        sleep(@params["delay"].to_i)
      end
+
+     # Check for test parameter "t"
+     # If "t" is not provided, use today's date
+     if @params.has_key?("t")
+       $date_today = Date.parse(@params["t"])
+     else
+       $date_today = Date.today
+     end
    end
    
    get '/' do
