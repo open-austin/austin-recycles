@@ -78,7 +78,7 @@ module AustinRecycles
       # using ice_cube gem for scheduling
       schedule = Schedule.new(start_date)
       schedule.add_recurrence_rule Rule.weekly(week_increment).day(n)
-      t = schedule.next_occurrence
+      t = schedule.next_occurrence($date_today)
       Date.new(t.year, t.month, t.day)      
     end
 
@@ -102,7 +102,8 @@ module AustinRecycles
     # :PENDING:: Service is upcoming.
     # :PENDING:: Service has already passed.
     #
-    def self.status(service_date, service_period, today = Date.today)      
+    def self.status(service_date, service_period, today = nil)      
+      today ||= $date_today
       n = (service_date - today).to_i
       case service_period
       when :DAY
