@@ -78,7 +78,8 @@ module AustinRecycles
       # using ice_cube gem for scheduling
       schedule = Schedule.new(start_date)
       schedule.add_recurrence_rule Rule.weekly(week_increment).day(n)
-      t = schedule.next_occurrence($date_today)
+      # subtracting 1 from $date_today to avoid service date roll on day of service
+      t = schedule.next_occurrence($date_today - 1)
       Date.new(t.year, t.month, t.day)      
     end
 
