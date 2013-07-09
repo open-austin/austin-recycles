@@ -147,6 +147,9 @@ The supported parameters are:
   is passed to the web service, which will delay by that amount before responding.
   I've used this, for instance, when I wanted to verify that the "busy throbber" is
   displaying correctly.
+  
+* t -- Value to use for current date. Must be a valid Date.parse() value, such as
+  "?t=July+3,+2014".
 
 * status -- Override calculated status of a service. The format is "id:status[,id:status...]".
   Example usage: http://stuff?status=recycle:active,bulky:past

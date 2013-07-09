@@ -18,16 +18,19 @@ module AustinRecycles
    
    before do
      @params = request.env['rack.request.query_hash']
+       
+     # ?delay=n
+     # Pause for "n" seconds.
+     # Intended for test/debug, to simulate slow connections.
      if @params.has_key?("delay")
        sleep(@params["delay"].to_i)
      end
 
-     # Check for test parameter "t"
-     # If "t" is not provided, use today's date
+     # ?t=datespec
+     # Force current date to "datespec", which must be a valid Date.parse value.
+     # Intended for test/debug.
      if @params.has_key?("t")
        $date_today = Date.parse(@params["t"])
-     else
-       $date_today = Date.today
      end
    end
    
