@@ -82,7 +82,7 @@ module AustinRecycles
       # using ice_cube gem for scheduling
       schedule = Schedule.new(start_time, :end_time => end_time)
       schedule.add_recurrence_rule Rule.weekly(week_increment).day(n)
-      t = schedule.next_occurrence($date_today || Date.today)
+      t = schedule.next_occurrence($time_now || Time.now)
       Date.new(t.year, t.month, t.day)      
     end
 
@@ -107,8 +107,8 @@ module AustinRecycles
     # :PENDING:: Service has already passed.
     #
     def self.status(service_date, service_period, today = nil)      
-      today ||= ($date_today || Date.today)
-      n = (service_date - today).to_i
+      today ||= ($time_now || Time.now)
+      n = (service_date.to_time - today).to_i
       case service_period
       when :DAY
         # mark active if pickup is today or tomorrow
