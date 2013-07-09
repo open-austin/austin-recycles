@@ -75,11 +75,14 @@ module AustinRecycles
     #
     def self.next_service(start_date, day_name, week_increment = 1)
       n = day_name_to_num(day_name)
+      # set start_time to 9:00AM on start_date
+      start_time = start_date.to_time + 9 * 3600
+      # set end_time to 5:00PM on start_date
+      end_time = start_date.to_time + 17 * 3600
       # using ice_cube gem for scheduling
-      schedule = Schedule.new(start_date)
+      schedule = Schedule.new(start_time, :end_time => end_time)
       schedule.add_recurrence_rule Rule.weekly(week_increment).day(n)
-      # subtracting 1 from $date_today to avoid service date roll on day of service
-      t = schedule.next_occurrence($date_today - 1)
+      t = schedule.next_occurrence($date_today)
       Date.new(t.year, t.month, t.day)      
     end
 
