@@ -27,7 +27,7 @@ module AustinRecycles
      end
 
      # ?t=datespec
-     # Force current date to "datespec", which must be a valid Date.parse value.
+     # Force current date to "datespec", which must be a valid Time.parse value.
      # Intended for test/debug.
      if @params.has_key?("t")
        $time_now = Time.parse(@params["t"])
