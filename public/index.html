@@ -24,18 +24,18 @@
 <body onload="initialize()">
 
   <div class="container">
-  
+
     <div class="row">
       <div class="span12">
-        <h1>When Do We Put Our Carts Out?</h1>
+       <h1 style="display:inline">When Do We Put Our Carts Out?</h1><span class="label">Beta</span>
       </div>
     </div>
     <div class="row">
-    
+
       <div class="span9">
-    
+
         <div id="map_canvas"></div>
-        
+
         <div id="controls-block">
           <form onsubmit="return actionSetAddress(this.address.value)">
             <!-- ko if: showStartButton -->
@@ -49,11 +49,11 @@
             <button type="button" class="btn btn-link"
                 title="Return to initial location."
                 onclick="return actionReset()"><i class="icon-retweet"></i> <small>RESET</small></button>
-            <button type="button" class="btn btn-link" 
-                onclick="location.href='about.html'"><i class="icon-question-sign"></i> <small>ABOUT</small></button>    
+            <button type="button" class="btn btn-link"
+                onclick="location.href='about.html'"><i class="icon-question-sign"></i> <small>ABOUT</small></button>
           </form>
         </div>
-        
+
         <div id="alerts-block" data-bind="foreach: alerts">
           <div class="alert" data-bind="css: 'alert-' + type">
           <!-- ko if: isDismissable -->
@@ -65,7 +65,7 @@
           <span data-bind="text: message"></span>
           </div>
         </div>
-        
+
         <!-- ko if: pickups().length > 0 -->
         <h2>Next Service</h2>
         <div id="services-block" data-bind="foreach: pickups">
@@ -76,30 +76,30 @@
           </div>
         </div>
         <!-- /ko -->
-        
+
       </div><!-- .span9 -->
 
       <div class="span3">
-          
+
           <div class="logo">
             <a href="http://austintexas.gov/department/austin-resource-recovery"><img
               src="assets/img/ARRlogo_coa_230.png" height="95" width="230"
               alt="Austin Resource Recovery" title="Austin Resource Recovery" /></a>
           </div>
-      
+
           <div class="logo">
             <a href="http://www.open-austin.org/"><img
               src="assets/img/logo-openaustin-230x46.png" height="46" width="230"
               alt="Open Austin" title="Open Austin" /></a>
           </div>
-          
+
           <div class="logo">
             <a href="http://austintexas.gov/"><img
               src="assets/img/COA_Seal_150.png" height="60" width="60"
               alt="City of Austin" title="City of Austin" /></a>
           </div>
-                
-          
+
+
       </div><!-- .span3 -->
 
     </div><!-- .row -->
