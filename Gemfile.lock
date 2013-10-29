@@ -1,37 +1,38 @@
 GIT
   remote: git://github.com/chip-rosenthal/findit-support.git
-  revision: 520d56cccde0c5c416c1c338cf4d930f6c90536f
+  revision: 7739274ea398894a5a84a0758e62ace04ec89413
   specs:
-    findit-support (0.0.1)
-      json_pure (>= 1.7.7)
-      sequel (>= 3.45.0)
-      sqlite3 (>= 1.3.7)
+    findit-support (0.0.2)
+      json_pure (~> 1.7.7)
+      sequel (~> 3.45.0)
+      sqlite3 (~> 1.3.7)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    ice_cube (0.10.0)
+    ice_cube (0.11.1)
     json_pure (1.7.7)
     multi_json (1.3.7)
     rack (1.5.2)
-    rack-protection (1.5.0)
+    rack-protection (1.5.1)
       rack
     sequel (3.45.0)
-    sinatra (1.4.1)
-      rack (~> 1.5, >= 1.5.2)
+    sinatra (1.4.4)
+      rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
-    sinatra-jsonp (0.4.1)
+    sinatra-jsonp (0.4.2)
       multi_json (~> 1.3.7)
       sinatra (~> 1.0)
-    sqlite3 (1.3.7)
-    tilt (1.3.6)
+    sqlite3 (1.3.8)
+    tilt (1.4.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   findit-support!
-  ice_cube
-  sinatra
-  sinatra-jsonp
+  ice_cube (~> 0.11.0)
+  sinatra (~> 1.4.3)
+  sinatra-jsonp (~> 0.4.2)
+  sqlite3 (~> 1.3.8)

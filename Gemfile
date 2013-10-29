@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
-gem 'sinatra'
-gem 'sinatra-jsonp'
-gem 'ice_cube'
-
-gem "findit-support", :git => "git://github.com/chip-rosenthal/findit-support.git"
-
+gem 'sinatra', '~> 1.4.3'
+gem 'sinatra-jsonp', '~> 0.4.2'
+gem 'sqlite3', '~> 1.3.8'
+gem 'ice_cube', '~> 0.11.0'
+gem 'findit-support', :git => 'git://github.com/chip-rosenthal/findit-support.git'

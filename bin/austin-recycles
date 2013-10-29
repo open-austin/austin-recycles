@@ -1,3 +1,8 @@
-#!/usr/bin/env ruby
-require_relative "../lib/austin-recycles.rb"
-AustinRecycles::Service.run!
+#!/bin/sh
+if [ -z "$APP_ROOT" ] ; then
+	APP_ROOT="`dirname $0`/.."
+	APP_ROOT=`cd $APP_ROOT && pwd`
+fi
+export APP_ROOT
+exec ruby $APP_ROOT/lib/austin-recycles/service.rb 
+

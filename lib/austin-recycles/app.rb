@@ -1,14 +1,19 @@
 require 'findit-support'
-require 'austin-recycles/collection-route'
+require_relative './collection-route.rb'
 
 module AustinRecycles
   
   class App
 
-    DATABASE = File.dirname(__FILE__) + '/data/collection_routes.db'
-
+    # Construct a new AustinRecycles app instance.
     def initialize(options = {})
-      @db = Sequel.spatialite(DATABASE)
+      database = options[:database] || "#{AustinRecycles::BASEDIR}/#{AustinRecycles::DATABASE}"
+      raise "database \"#{database}\" not found" unless File.exist?(database)
+
+      @db = Sequel.spatialite(database)
+      @db.logger = options[:log] if options.has_key?(:log)
+      @db.sql_log_level = :debug
+
       @finders = {}
       AustinRecycles::CollectionRoute::TYPES.each do |type|
         @finders[type] = AustinRecycles::CollectionRoute.new(@db, type)

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DATABASE="../collection_routes.db"
+DATABASE="austin-recycles.db"
 
 DATASETS="
 	brush_collection_routes
