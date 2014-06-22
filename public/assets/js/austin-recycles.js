@@ -32,6 +32,15 @@ function initialize(options) {
   google.maps.event.addListener(map, 'click', function(event) {
     setCurrentLocation(event.latLng, {'recenter': false});
   });
+
+  if (! navigator.geolocation) {
+    view.alert("Sorry ... your device does not support geolocation.");
+  } else {
+    navigator.geolocation.getCurrentPosition(function(result) {
+      setCurrentLocation(new google.maps.LatLng(result.coords.latitude, result.coords.longitude));
+    });
+  }
+
 }
 
 
@@ -58,23 +67,6 @@ function actionSetAddress(address) {
   return false; // suppress form submission
 }
 
-
-/**
- * Action called when user requests device geolocation to be performed.
- * 
- * Example:
- *   <input type="button" value="Find Me" onclick="return actionLocateMe()" />
- */
-function actionLocateMe() {
-  if (! navigator.geolocation) {
-    view.alert("Sorry ... your device does not support geolocation.");
-  } else {
-    navigator.geolocation.getCurrentPosition(function(result) {
-      setCurrentLocation(new google.maps.LatLng(result.coords.latitude, result.coords.longitude));
-    });
-  }
-  return false; // suppress form action
-}
 
 
 /**
@@ -291,13 +283,11 @@ var ViewModel = function() {
   self.address = ko.observable("");
   self.pickups = ko.observableArray();
   self.alerts = ko.observableArray();
-  self.showStartButton = ko.observable(navigator.geolocation !== undefined);
   
   self.reset = function() {
     self.address("");
     self.pickups.removeAll();
     self.alerts.removeAll();
-    self.showStartButton(false);
   }
   
   self.alert = function(message, options) {

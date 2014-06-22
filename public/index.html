@@ -38,11 +38,6 @@
 
         <div id="controls-block">
           <form onsubmit="return actionSetAddress(this.address.value)">
-            <!-- ko if: showStartButton -->
-            <button type="button" class="btn btn-glow"
-                title="Use geolocation feature built into my device to find current location."
-                onclick="return actionLocateMe()"><i class="icon-globe"></i> <small>START</small></button>
-            <!-- /ko -->
             <input style="width: 320px; margin-bottom: 0" type="text" name="address" placeholder="Enter address" data-bind="value: address" />
             <button type="submit" class="btn"
                 title="Search for this address"><i class="icon-search"></i></button>
