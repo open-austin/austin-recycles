@@ -1,0 +1,59 @@
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org>
+
+---
+
+This statement excludes the following, which are part of
+third-party packages included in this project.
+
+Files:
+  * data/*
+  * public/assets/img/ARRlogo_coa_230.png
+Source: City of Austin, Austin Resource Recovery
+
+File: public/assets/img/COA_Seal_150.png
+Source: City of Austin
+
+Files:
+  * public/assets/css/bootstrap-responsive.css
+  * public/assets/css/bootstrap-responsive.min.css
+  * public/assets/css/bootstrap.css
+  * public/assets/css/bootstrap.min.css
+  * public/assets/img/glyphicons-halflings-white.png
+  * public/assets/img/glyphicons-halflings.png
+  * public/assets/js/bootstrap-*.js
+Source: http://getbootstrap.com/2.3.2/assets/bootstrap.zip
+Info: http://getbootstrap.com/2.3.2/
+
+File: public/assets/img/icon-busy.gif
+Source: unknown
+
+File:	public/assets/js/lib/jquery-1.10.0.min.js
+Source:	http://code.jquery.com/jquery-1.10.0.min.js
+Info:	http://jquery.com/
+
+File:	public/assets/js/lib/knockout-2.2.1.js
+Source:	http://knockoutjs.com/downloads/knockout-2.2.1.js
+Info:	http://knockoutjs.com/
